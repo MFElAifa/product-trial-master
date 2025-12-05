@@ -1,0 +1,58 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./php/Dockerfile
+    container_name: product_trial_php
+    volumes:
+      - ./myShop:/var/www/html
+    networks:
+      - dev
+
+  nginx:
+    image: nginx:latest
+    container_name: product_trial_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./myShop:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - dev
+    
+  db:
+    image: mysql:8.0
+    container_name: product_trial_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: product_trial_master
+      # MYSQL_USER: root
+      # MYSQL_PASSWORD: root
+      #MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - dev
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: product_trial_pma
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db_data:
