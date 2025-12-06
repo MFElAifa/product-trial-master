@@ -12,6 +12,10 @@ use DateTimeImmutable;
 #[ORM\HasLifecycleCallbacks]
 class Product
 {
+    const INSTOCK = 'INSTOCK';
+    const LOWSTOCK = 'LOWSTOCK';
+    const OUTOFSTOCK = 'OUTOFSTOCK';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -41,8 +45,8 @@ class Product
     #[ORM\Column]
     private ?int $shellId = null;
 
-    #[ORM\Column(enumType: ProductStatus::class)]
-    private ?ProductStatus $inventoryStatus = null;
+    #[ORM\Column(length: 255)]
+    private ?string $inventoryStatus = self::INSTOCK;
 
     #[ORM\Column]
     private ?int $rating = null;
@@ -59,7 +63,7 @@ class Product
     #[ORM\PrePersist]
     public function prePersist()
     {
-        if(empty($this->createdAt)){
+        if (empty($this->createdAt)) {
             $this->createdAt = new DateTimeImmutable();
         }
         $this->updatedAt = new DateTimeImmutable();
@@ -166,12 +170,12 @@ class Product
         return $this;
     }
 
-    public function getInventoryStatus(): ?ProductStatus
+    public function getInventoryStatus(): ?string
     {
         return $this->inventoryStatus;
     }
 
-    public function setInventoryStatus(ProductStatus $inventoryStatus): static
+    public function setInventoryStatus(string $inventoryStatus): static
     {
         $this->inventoryStatus = $inventoryStatus;
 

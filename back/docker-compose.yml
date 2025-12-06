@@ -38,6 +38,7 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - dev
+  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: product_trial_pma
