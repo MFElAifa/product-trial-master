@@ -13,4 +13,5 @@ export interface Product {
     rating: number;
     createdAt: number;
     updatedAt: number;
+    _orderQty: number;
 }

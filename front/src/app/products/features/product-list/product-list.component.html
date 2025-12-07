@@ -26,7 +26,7 @@
                     <p-inputNumber [(ngModel)]="product._orderQty" [min]="1" [max]="product.quantity"
                         inputId="qty-{{ product.code }}" class="small-qty" />
                     <p-button label="Ajouter au panier" icon="pi pi-shopping-cart" severity="secondary"
-                        (onClick)="onUpdate(product)" />
+                        (onClick)="onAddToCart(product)" />
                     <!-- <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)" />
                     <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" /> -->
                 </div>

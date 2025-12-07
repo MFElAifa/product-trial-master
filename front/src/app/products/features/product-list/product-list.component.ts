@@ -9,6 +9,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { CartService } from "app/cart/cart.service";
 
 const emptyProduct: Product = {
   id: 0,
@@ -25,6 +26,7 @@ const emptyProduct: Product = {
   rating: 0,
   createdAt: 0,
   updatedAt: 0,
+  _orderQty: 1
 };
 
 @Component({
@@ -36,6 +38,7 @@ const emptyProduct: Product = {
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
 
   public readonly products = this.productsService.products;
 
@@ -81,5 +84,13 @@ export class ProductListComponent implements OnInit {
 
   private closeDialog() {
     this.isDialogVisible = false;
+  }
+
+  public onAddToCart(product: Product) {
+    const qty = product._orderQty ?? 1;
+
+    this.cartService.add(product, qty);
+
+    console.log("Product add to cart :", product.name, "Qty:", qty);
   }
 }

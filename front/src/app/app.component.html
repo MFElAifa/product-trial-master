@@ -6,12 +6,16 @@
         {{ title }}
     </div>
     <div class="p-toolbar-group-end">
-        <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+        <div class="relative inline-block">
+            <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
+
+            <span class="cart-badge">
+                {{ cart.totalQuantity() }}
+            </span>
+        </div>
     </div>
 </p-toolbar>
-<p-splitter 
-    [panelSizes]="[20, 80]" 
-    [style]="{ height: 'calc(100vh - 100px)' }">
+<p-splitter [panelSizes]="[20, 80]" [style]="{ height: 'calc(100vh - 100px)' }">
     <ng-template pTemplate>
         <div class="w-full">
             <app-panel-menu />
