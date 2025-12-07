@@ -2,7 +2,6 @@
 
 namespace App\DTO;
 
-use App\Entity\Category;
 use App\Entity\Product;
 use Symfony\Component\ObjectMapper\Attribute\Map;
 use Symfony\Component\Validator\Constraints as Assert;
