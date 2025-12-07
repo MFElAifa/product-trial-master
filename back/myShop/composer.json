@@ -16,6 +16,7 @@
         "lexik/jwt-authentication-bundle": "^3.1",
         "mbezhanov/faker-provider-collection": "*",
         "nelmio/api-doc-bundle": "^5.0",
+        "nelmio/cors-bundle": "^2.6",
         "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
