@@ -39,16 +39,16 @@ class Product
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $internalReference = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $shellId = null;
 
     #[ORM\Column(length: 255)]
     private ?string $inventoryStatus = self::INSTOCK;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $rating = null;
 
     #[ORM\Column]
@@ -57,8 +57,8 @@ class Product
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    private ?Category $category = null;
+    #[ORM\Column(nullable: true)]
+    private ?string $category = null;
 
     #[ORM\PrePersist]
     public function prePersist()
@@ -151,7 +151,7 @@ class Product
         return $this->internalReference;
     }
 
-    public function setInternalReference(string $internalReference): static
+    public function setInternalReference(?string $internalReference): static
     {
         $this->internalReference = $internalReference;
 
@@ -163,7 +163,7 @@ class Product
         return $this->shellId;
     }
 
-    public function setShellId(int $shellId): static
+    public function setShellId(?int $shellId): static
     {
         $this->shellId = $shellId;
 
@@ -187,7 +187,7 @@ class Product
         return $this->rating;
     }
 
-    public function setRating(int $rating): static
+    public function setRating(?int $rating): static
     {
         $this->rating = $rating;
 
@@ -218,12 +218,12 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?Category
+    public function getCategory(): ?string
     {
         return $this->category;
     }
 
-    public function setCategory(?Category $category): static
+    public function setCategory(?string $category): static
     {
         $this->category = $category;
 

@@ -13,7 +13,10 @@
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.5",
         "fakerphp/faker": "^1.24",
+        "lexik/jwt-authentication-bundle": "^3.1",
         "mbezhanov/faker-provider-collection": "*",
+        "nelmio/api-doc-bundle": "^5.0",
+        "symfony/asset": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
         "symfony/flex": "^2",
@@ -21,11 +24,15 @@
         "symfony/object-mapper": "7.4.*",
         "symfony/property-access": "7.4.*",
         "symfony/runtime": "7.4.*",
+        "symfony/security-bundle": "7.4.*",
         "symfony/serializer": "7.4.*",
         "symfony/string": "7.4.*",
         "symfony/translation": "7.4.*",
+        "symfony/twig-bundle": "7.4.*",
         "symfony/validator": "7.4.*",
-        "symfony/yaml": "7.4.*"
+        "symfony/yaml": "7.4.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {

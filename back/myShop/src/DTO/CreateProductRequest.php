@@ -19,7 +19,6 @@ final readonly class CreateProductRequest
         #[Assert\Length(min: 3, max: 255)]
         public ?string $name = null,
 
-        #[Assert\NotBlank(message: "La description est obligatoire.")]
         #[Assert\Length(min: 10)]
         public ?string $description = null,
 
@@ -31,23 +30,18 @@ final readonly class CreateProductRequest
         #[Assert\PositiveOrZero(message: "La quantité doit être positive ou nulle.")]
         public ?int $quantity = null,
 
-        #[Assert\NotNull(message: "La catégorie est obligatoire.")]
-        public ?int $categoryId = null,
+        public ?string $category = null,
 
         #[Assert\Url(message: "L'URL de l'image n'est pas valide.")]
         public ?string $image = null,
 
-        #[Assert\NotBlank(message: "La référence interne est obligatoire.")]
-        #[Assert\Length(min: 3, max: 255)]
+        #[Assert\Length(min: 3)]
         public ?string $internalReference = null,
 
-        #[Assert\NotNull(message: "Le shellId est obligatoire.")]
         public ?int $shellId = null,
 
-        #[Assert\NotBlank(message: "Le statut d'inventaire est obligatoire.")]
         public ?string $inventoryStatus = "INSTOCK",
 
-        #[Assert\NotNull(message: "Le rating est obligatoire.")]
         public ?int $rating = null
     ) {}
 }

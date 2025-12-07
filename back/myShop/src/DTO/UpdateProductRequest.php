@@ -24,12 +24,12 @@ final readonly class UpdateProductRequest
 
         public ?int $quantity = null,
 
-        public ?int $categoryId = null,
+        public ?string $category = null,
 
         #[Assert\Url(message: "L'URL de l'image n'est pas valide.")]
         public ?string $image = null,
 
-        #[Assert\Length(min: 3, max: 255)]
+        #[Assert\Length(min: 3)]
         public ?string $internalReference = null,
 
         public ?int $shellId = null,
