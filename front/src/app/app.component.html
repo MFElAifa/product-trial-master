@@ -6,13 +6,13 @@
         {{ title }}
     </div>
     <div class="p-toolbar-group-end">
-        <div class="relative inline-block">
+        <a routerLink="/cart" class="relative inline-block">
             <i class="pi pi-shopping-cart" style="font-size: 2rem"></i>
 
             <span class="cart-badge">
                 {{ cart.totalQuantity() }}
             </span>
-        </div>
+        </a>
     </div>
 </p-toolbar>
 <p-splitter [panelSizes]="[20, 80]" [style]="{ height: 'calc(100vh - 100px)' }">

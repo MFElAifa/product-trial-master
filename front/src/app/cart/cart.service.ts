@@ -55,4 +55,15 @@ export class CartService {
     clear() {
         this._items.set([]);
     }
+
+    updateQuantity(productId: number, qty: number) {
+        this._items.update(items =>
+            items.map(item =>
+                item.product.id === productId
+                    ? { ...item, quantity: qty }
+                    : item
+            )
+        );
+    }
+
 }

@@ -1,0 +1,50 @@
+<h1 class="text-center">Panier</h1>
+
+<div *ngIf="items().length === 0">
+    <p>Votre panier est vide.</p>
+</div>
+
+<table *ngIf="items().length > 0" class="min-w-full border-collapse border text-sm">
+    <thead class="bg-gray-100">
+        <tr>
+            <th class="border px-4 py-2 text-left">Code</th>
+            <th class="border px-4 py-2 text-left">Nom</th>
+            <th class="border px-4 py-2 text-right">Prix (€)</th>
+            <th class="border px-4 py-2 text-center">Quantité</th>
+            <th class="border px-4 py-2 text-right">Total (€)</th>
+            <th class="border px-4 py-2 text-center">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let item of items()" class="hover:bg-gray-50">
+            <td class="border px-4 py-2">{{ item.product.code }}</td>
+
+            <td class="border px-4 py-2">{{ item.product.name }}</td>
+
+            <td class="border px-4 py-2 text-right">
+                {{ item.product.price }}
+            </td>
+
+            <td class="border px-4 py-2 text-center">
+                <input type="number" [(ngModel)]="item.quantity"
+                    (ngModelChange)="cart.updateQuantity(item.product.id, item.quantity)" min="1"
+                    class="w-16 border rounded px-2 py-1 text-center" />
+
+            </td>
+
+            <td class="border px-4 py-2 text-right font-semibold">
+                {{ item.product.price * item.quantity }} €
+            </td>
+            <td class="border px-4 py-2 text-center">
+                <p-button label="Supprimer" severity="danger" (onClick)="removeItem(item.product.id)" />
+            </td>
+        </tr>
+        <tr *ngIf="items().length > 0">
+            <td colspan="5" class="border px-4 py-2 text-right text-xl font-bold">Total</td>
+            <td class="border px-4 py-2 text-center text-xl font-bold">
+                {{ total() }} €
+            </td>
+        </tr>
+    </tbody>
+</table>
