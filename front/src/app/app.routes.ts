@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./shared/features/home/home.component";
 import { CartPageComponent } from './cart/cart-page/cart-page.component';
+import { ContactPageComponent } from './contact/contact-page/contact-page.component';
 
 export const APP_ROUTES: Routes = [
   {
@@ -16,5 +17,9 @@ export const APP_ROUTES: Routes = [
   {
     path: 'cart',
     component: CartPageComponent
+  },
+  {
+    path: 'contact',
+    component: ContactPageComponent
   }
 ];
