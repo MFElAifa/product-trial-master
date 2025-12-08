@@ -14,11 +14,21 @@
                 <div class="flex-1">
                     <span class="font-medium text-secondary text-sm">{{ product.category }} </span>
                     <div class="text-lg font-medium text-900 mt-2">
-                        <span class="text-xs text-gray-400 mt-1">{{ product.code }} - </span>
-                        {{ product.name }}
+                        {{ product.code }} - {{ product.name }}
                     </div>
                     <p class="text-sm text-gray-600 mt-2">{{ product.description }}</p>
                     <div class="text-xl font-semibold text-green-600 mt-3">{{ product.price }} €</div>
+                    <div class="text-xs text-gray-400 mt-1">Quantity Available :{{ product.quantity }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Internal Reference :{{ product.internalReference }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Shell ID :{{ product.shellId }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Inventory Stock :{{ product.inventoryStatus }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Rating :{{ product.rating }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Created Date :{{ product.createdAt | date:'dd/MM/yyyy HH:mm'
+                        }} </div>
+                    <div class="text-xs text-gray-400 mt-1">Updated Date :{{ product.updatedAt | date:'dd/MM/yyyy HH:mm'
+                        }} </div>
+
+
                     <div class="flex gap-3 mt-1">
                         <label class="text-gray-600 text-sm mt-2">Quantité :</label>
                         <p-inputNumber [(ngModel)]="product._orderQty" [min]="1" [max]="product.quantity"

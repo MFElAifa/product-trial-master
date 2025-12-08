@@ -69,6 +69,7 @@ Assurez-vous d'avoir **Docker** et **Docker Compose** installés.
 ```back
 docker-compose up --build -d
 docker exec -it product_trial_php composer install
+docker exec -it product_trial_php php bin/console d:d:c (doctrine:database:create)
 docker exec -it product_trial_php php bin/console d:m:m (doctrine:migrations:migrate)
 docker exec -it product_trial_php php bin/console d:f:l (doctrine:fixtures:load)
 
