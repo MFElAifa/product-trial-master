@@ -10,6 +10,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CartService } from "app/cart/cart.service";
+import { PaginatorModule } from 'primeng/paginator';
 
 const emptyProduct: Product = {
   id: 0,
@@ -34,9 +35,13 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, FormsModule, InputNumberModule, CommonModule]
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, FormsModule, InputNumberModule, CommonModule, PaginatorModule]
 })
 export class ProductListComponent implements OnInit {
+  totalRecords = 0;
+  limit = 5;
+  page = 1;
+
   private readonly productsService = inject(ProductsService);
   private readonly cartService = inject(CartService);
 
@@ -47,12 +52,22 @@ export class ProductListComponent implements OnInit {
   public readonly editedProduct = signal<Product>(emptyProduct);
   public loading = signal(true);
   ngOnInit() {
-    this.productsService.get().subscribe(() => {
-      this.loading.set(false);
-
-    });
+    this.loadProducts();
   }
 
+  loadProducts() {
+    this.productsService.get(this.page, this.limit)
+      .subscribe(response => {
+        this.totalRecords = response.total;
+        this.loading.set(false);
+      });
+  }
+
+  onPageChange(event: any) {
+    this.page = event.page + 1;
+    this.limit = event.rows;
+    this.loadProducts();
+  }
   public onCreate() {
     this.isCreation = true;
     this.isDialogVisible = true;

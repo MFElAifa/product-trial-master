@@ -31,7 +31,13 @@ class ProductController extends AbstractController
     public function products(#[MapQueryString] ProductsQuery $query): JsonResponse
     {
         $products = $this->productRepository->findByQuery($query);
-        return $this->json($products);
+        $total = $this->productRepository->count([]);
+        return $this->json([
+            'total' => $total,
+            'page' => $query->page,
+            'itemsPerPage' => $query->itemsPerPage,
+            'data' => $products,
+        ]);
     }
 
     #[Route('/products/{id}', name: 'api.products.show', methods: ['GET'])]

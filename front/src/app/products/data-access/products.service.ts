@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
-import { catchError, Observable, of, tap } from "rxjs";
+import { catchError, Observable, of, tap, map } from "rxjs";
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -15,14 +15,22 @@ import { environment } from '../../../environments/environment';
 
     public readonly products = this._products.asReadonly();
 
-    public get(): Observable<Product[]> {
-        console.log(this.path);
-        return this.http.get<Product[]>(this.path).pipe(
-            catchError((error) => {
-                return this.http.get<Product[]>("assets/products.json");
+    public get(page: number, limit: number): Observable<{ data: Product[], total: number }> {
+        const url = `${this.path}?page=${page}&itemsPerPage=${limit}`;
+        console.log(url);
+        return this.http.get<{ data: Product[], total: number }>(url).pipe(
+            catchError(error => {
+                console.warn("API KO", error);
+
+                return this.http.get<Product[]>("assets/products.json").pipe(
+                    map((products: Product[]) => ({
+                        data: products,
+                        total: products.length
+                    }))
+                ) as Observable<{ data: Product[]; total: number }>;
             }),
-            tap((products) => {
-                const enriched = products.map(p => ({
+            tap((response) => {
+                const enriched = response.data.map((p: Product) => ({
                     ...p,
                     _orderQty: 1
                 }));
