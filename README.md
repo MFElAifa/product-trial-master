@@ -79,11 +79,12 @@ Les services suivants seront disponibles :
 | PhopMyAdmin    | http://localhost:8080          |
 | Backend API    | http://localhost:8000/api      |
 | API doc        | http://localhost:8000/api/doc  |
+````
 
 ## Authentification API
 
 ```
-email: admin@admin.com
+email: admin@admin.com, 
 password: password
 ```
 
