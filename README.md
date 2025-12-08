@@ -83,8 +83,8 @@ Les services suivants seront disponibles :
 ## Authentification API
 
 ```
-email : admin@admin.com,
-password : password
+email: admin@admin.com
+password: password
 ```
 
 
