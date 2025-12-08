@@ -23,8 +23,18 @@ export class CartService {
         this._items().reduce((sum, item) => sum + item.quantity * item.product.price, 0)
     );
 
-    constructor() { }
+    private readonly CART_KEY = 'my_cart';
 
+    constructor() {
+        const savedCart = localStorage.getItem(this.CART_KEY);
+        if (savedCart) {
+            this._items.set(JSON.parse(savedCart));
+        }
+    }
+
+    private saveCart() {
+        localStorage.setItem(this.CART_KEY, JSON.stringify(this._items()));
+    }
     add(product: Product, qty: number = 1) {
         this._items.update(items => {
             const index = items.findIndex(i => i.product.id === product.id);
@@ -46,14 +56,17 @@ export class CartService {
                 }
             ];
         });
+        this.saveCart();
     }
 
     remove(productId: number) {
         this._items.update(items => items.filter(i => i.product.id !== productId));
+        this.saveCart();
     }
 
     clear() {
         this._items.set([]);
+        localStorage.removeItem(this.CART_KEY);
     }
 
     updateQuantity(productId: number, qty: number) {
@@ -64,6 +77,8 @@ export class CartService {
                     : item
             )
         );
+        this.saveCart();
+
     }
 
 }
