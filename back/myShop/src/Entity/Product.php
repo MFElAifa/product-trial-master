@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -65,6 +66,7 @@ class Product
      * @var Collection<int, CartItem>
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'product')]
+    #[Ignore]
     private Collection $cartItems;
 
     public function __construct()

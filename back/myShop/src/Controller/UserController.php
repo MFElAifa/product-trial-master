@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\DTO\CreateUserRequest;
+use App\DTO\UserRequest;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Services\UserService;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\ObjectMapper\ObjectMapperInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -41,20 +41,18 @@ class UserController extends AbstractController
 
     #[Route('/token', name: 'api.account.token', methods: ['POST'])]
     public function token(
-        Request $request,
+        #[MapRequestPayload] UserRequest $request,
         UserRepository $userRepository,
         JWTTokenManagerInterface $jwtManager
     ): JsonResponse {
 
-        $data = json_decode($request->getContent(), true);
-        //dd($data);
-        if (!isset($data['email']) || !isset($data['password'])) {
+        if (!isset($request->email) || !isset($request->password)) {
             return $this->json(['error' => 'Email et mot de passe requis'], 400);
         }
 
-        $user = $userRepository->findOneBy(['email' => $data['email']]);
+        $user = $userRepository->findOneBy(['email' => $request->email]);
 
-        if (!$user || !$this->encoder->isPasswordValid($user, $data['password'])) {
+        if (!$user || !$this->encoder->isPasswordValid($user, $request->password)) {
             return $this->json(['error' => 'Identifiants invalides'], 401);
         }
 

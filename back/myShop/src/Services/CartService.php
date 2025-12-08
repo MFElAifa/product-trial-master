@@ -28,10 +28,9 @@ class CartService
         foreach ($cart->getCartItems() as $item) {
             if ($item->getProduct()->getId() === $product->getId()) {
                 $item->setQuantity($item->getQuantity() + $qty);
-                // update cart totalTTC
-                $cart->setTotalTtc($cart->getTotalTtc() + ($qty * $product->getPrice()));
-                $this->em->persist($cart);
-                $this->em->flush();
+                $this->em->persist($item);
+
+                $this->saveCart($cart);
                 return $cart;
             }
         }
@@ -39,14 +38,11 @@ class CartService
         $item = new CartItem();
         $item->setProduct($product);
         $item->setQuantity($qty);
-        $item->setCart($cart);
+        $cart->addCartItem($item);
         $this->em->persist($item);
 
         // update cart totalTTC
-        $cart->setTotalTtc($cart->getTotalTtc() + ($qty * $product->getPrice()));
-        $this->em->persist($cart);
-
-        $this->em->flush();
+        $this->saveCart($cart);
 
         return $cart;
     }
@@ -55,13 +51,25 @@ class CartService
     {
         foreach ($cart->getCartItems() as $item) {
             if ($item->getProduct()->getId() === $product->getId()) {
-                $cart->setTotalTtc($cart->getTotalTtc() - ($item->getQuantity() * $product->getPrice()));
-                $this->em->persist($cart);
-
                 $cart->getCartItems()->removeElement($item);
                 $this->em->remove($item);
-                $this->em->flush();
+                $this->saveCart($cart);
             }
         }
+    }
+
+
+    private function saveCart(Cart $cart): void
+    {
+        $total = 0.0;
+        foreach ($cart->getCartItems() as $item) {
+            // update cart totalTTC
+            $total += $item->getQuantity() * $item->getProduct()->getPrice();
+        }
+
+        $cart->setTotalTtc($total);
+        $this->em->persist($cart);
+
+        $this->em->flush();
     }
 }

@@ -18,9 +18,9 @@ class Cart
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'cart')]
-    private ?user $user = null;
+    private ?User $user = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?float $total_ttc = null;
 
     /**

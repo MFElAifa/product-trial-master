@@ -16,10 +16,12 @@ class CartItem
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'cartItems')]
-    private ?product $product = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'cartItems')]
-    private ?cart $cart = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Cart $cart = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
