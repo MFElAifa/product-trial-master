@@ -17,7 +17,7 @@ class ContactController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         if (!isset($data['email'], $data['message'])) {
-            return $this->json(['error' => 'Paramètres manquants'], 400);
+            return $this->json(['error' => 'Missing settings : email and message'], 400);
         }
 
         $email = (new Email())
@@ -28,6 +28,6 @@ class ContactController extends AbstractController
 
         $mailer->send($email);
 
-        return $this->json(['status' => 'Email envoyé']);
+        return $this->json(['status' => 'Email sent successfully']);
     }
 }

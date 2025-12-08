@@ -4,9 +4,9 @@
 <p-paginator [rows]="limit" [totalRecords]="totalRecords" [rowsPerPageOptions]="[5, 10, 15]"
     (onPageChange)="onPageChange($event)">
 </p-paginator>
+<ng-container *ngIf="loading()" class="text-center">Loading...</ng-container>
 
-<p-dataView #dv [value]="products()">
-    <ng-container *ngIf="loading()">Loading...</ng-container>
+<p-dataView #dv [value]=" products()">
     <ng-template pTemplate="list" let-products>
         @for (product of products; track product; let i = $index) {
         <p-card class="block mb-2">
