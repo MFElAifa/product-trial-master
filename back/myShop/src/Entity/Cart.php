@@ -18,15 +18,16 @@ class Cart
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'cart')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', onDelete: 'CASCADE', nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $total_ttc = null;
+    #[ORM\Column(options: ["default" => 0])]
+    private float $total_ttc = 0;
 
     /**
      * @var Collection<int, CartItem>
      */
-    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart')]
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $cartItems;
 
     #[ORM\Column]
@@ -46,6 +47,12 @@ class Cart
         if (empty($this->createdAt)) {
             $this->createdAt = new DateTimeImmutable();
         }
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function preUpdate()
+    {
         $this->updatedAt = new DateTimeImmutable();
     }
 

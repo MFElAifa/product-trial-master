@@ -41,6 +41,12 @@ class CartItem
         $this->updatedAt = new DateTimeImmutable();
     }
 
+    #[ORM\PreUpdate]
+    public function preUpdate()
+    {
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
