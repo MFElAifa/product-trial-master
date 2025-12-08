@@ -53,7 +53,6 @@ Angular 18
 
 - **Symfony 7.4** (API REST, Doctrine ORM, Swgger UI, JWT)
 - **PHP >=8.2** avec extensions nécessaires
-- **Nginx** (reverse proxy et serveur HTTP)
 - **Docker / Docker Compose**
 
 ---
