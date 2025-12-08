@@ -80,6 +80,14 @@ Les services suivants seront disponibles :
 | Backend API    | http://localhost:8000/api      |
 | API doc        | http://localhost:8000/api/doc  |
 
+## Authentification API
+
+```
+email : admin@admin.com,
+password : password
+```
+
+
 ### Partie 1
 
 Développer un back-end permettant la gestion de produits définis plus bas.
