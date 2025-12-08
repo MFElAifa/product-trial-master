@@ -12,6 +12,18 @@
 
 Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalités.
 
+## Technologies utilisées
+
+```
+Angular 18
+
+````
+
+## Lancer le projet
+``` 
+`ng serve` or `npm start`
+```
+
 ### Partie 1 : Shop
 
 - Afficher toutes les informations pertinentes d'un produit sur la liste
@@ -34,6 +46,40 @@ Le site de e-commerce d'Alten a besoin de s'enrichir de nouvelles fonctionnalit�
 - On doit pouvoir visualiser et ajuster la quantité des produits depuis la liste et depuis le panier 
 
 ## Back-end
+
+---
+
+## Technologies utilisées
+
+- **Symfony 7.4** (API REST, Doctrine ORM, Swgger UI, JWT)
+- **PHP >=8.2** avec extensions nécessaires
+- **Nginx** (reverse proxy et serveur HTTP)
+- **Docker / Docker Compose**
+
+---
+
+## Lancer le projet
+
+Assurez-vous d'avoir **Docker** et **Docker Compose** installés.
+
+``` 
+1. git clone https://github.com/MFElAifa/product-trial-master.git
+2. cd back/
+```
+
+```back
+docker-compose up --build -d
+docker exec -it product_trial_php composer install
+docker exec -it product_trial_php php bin/console d:m:m (doctrine:migrations:migrate)
+docker exec -it product_trial_php php bin/console d:f:l (doctrine:fixtures:load)
+
+Les services suivants seront disponibles :
+
+| Service        | URL                            |
+|----------------|--------------------------------|
+| PhopMyAdmin    | http://localhost:8080          |
+| Backend API    | http://localhost:8000/api      |
+| API doc        | http://localhost:8000/api/doc  |
 
 ### Partie 1
 
