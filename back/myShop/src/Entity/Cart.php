@@ -70,6 +70,9 @@ class Cart
     {
         $this->user = $user;
 
+        if ($user->getCart() !== $this) {
+            $user->setCart($this);
+        }
         return $this;
     }
 

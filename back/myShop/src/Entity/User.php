@@ -44,7 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
 
-    #[ORM\OneToOne(targetEntity: Cart::class, mappedBy: 'user')]
+    ##[ORM\OneToOne(targetEntity: Cart::class, mappedBy: 'user')]
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     #[Ignore]
     private ?Cart $cart = null;
 
@@ -169,6 +170,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCart(Cart $cart): static
     {
         $this->cart = $cart;
+
+        if ($cart && $cart->getUser() !== $this) {
+            $cart->setUser($this);
+        }
         return $this;
     }
 }

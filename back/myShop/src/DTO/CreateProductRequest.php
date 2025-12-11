@@ -31,7 +31,7 @@ final readonly class CreateProductRequest
 
         public ?string $category = null,
 
-        #[Assert\Url(message: "L'URL de l'image n'est pas valide.")]
+        #[Assert\Url(requireTld: true, message: "L'URL de l'image n'est pas valide.")]
         public ?string $image = null,
 
         #[Assert\Length(min: 3)]
